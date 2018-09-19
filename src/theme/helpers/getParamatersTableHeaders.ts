@@ -1,3 +1,4 @@
+
 /**
  * Displaying parameters table headers
  * @param parameters
@@ -14,6 +15,10 @@ export function getParametersTableHeaders(parameters: any) {
     return param.comment;
   });
 
+  const hasTypeDeclaration = parameters.find((param: any) => {
+    return param.type.declaration && param.type.declaration.children;
+  });
+
   if (!hasDefaultValues) {
     headers = headers.filter((header) => {
       return header !== 'Default value';
@@ -24,7 +29,7 @@ export function getParametersTableHeaders(parameters: any) {
     });
   }
 
-  if (!hasComments) {
+  if (!hasComments && !hasTypeDeclaration) {
     headers = headers.filter((header) => {
       return header !== 'Description';
     });

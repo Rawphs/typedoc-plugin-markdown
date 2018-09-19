@@ -6,4 +6,20 @@
 | {{#compact}}{{#each flags}}`{{this}}` {{/each}}{{ name }} | {{#with type}}{{>type}}{{/with}}{{#if defaultValue}} | {{defaultValue}} | {{else}} | {{/if}}{{#if comment}} {{#getMarkdownFromHtml}}{{#markdown}}{{ getStrippedComment comment }}{{/markdown}}{{/getMarkdownFromHtml}} |{{/if}}{{/compact}}
 {{/each}}
 {{getNewLine}}{{getNewLine}}
+
+{{#each parameters}}
+{{#if type.declaration.children}}
+**{{#each flags}}`{{this}}` {{/each}}{{#if flags.isRest}}...{{/if}}{{{name}}}: {{#with type}}{{>type}}{{/with}}**
+
+{{> comment}}
+
+{{#if type.declaration}}
+{{getParametersTableHeaders type.declaration.children}}
+{{#each type.declaration.children}}
+| {{#compact}}{{#each flags}}`{{this}}` {{/each}}{{ name }} | {{#with type}}{{>type}}{{/with}}{{#if defaultValue}} | {{defaultValue}} | {{else}} | {{/if}}{{#if type.declaration.children}}{{#if comment}}<br />{{#getMarkdownFromHtml}}{{#markdown}}{{ getStrippedComment comment }}{{/markdown}}{{/getMarkdownFromHtml}}<br />{{/if}}<br />**Properties:**<br /><br /><table><tr><th>Name</th><th>type</th>{{#ifParamsHasComments type.declaration}}<th>Description</th>{{/ifParamsHasComments}}</tr>{{#with type.declaration}}{{#each children}}<tr><td>{{#each flags}}`{{this}}` {{/each}} {{#if flags.isRest}}...{{/if}}{{{ name}}}</td><td>{{#with type}}{{>type}}{{/with}}</td>{{#if comment}}<td>{{#getMarkdownFromHtml}}{{#markdown}}{{ getStrippedComment comment }}{{/markdown}}{{/getMarkdownFromHtml}}{{/if}}</td></tr>{{/each}}{{/with}}</table>|{{else}}{{#if comment}} {{#getMarkdownFromHtml}}{{#markdown}}{{ getStrippedComment comment }}{{/markdown}}{{/getMarkdownFromHtml}} |{{/if}}{{/if}}{{/compact}}
+{{/each}}
+{{/if}}
+{{/if}}
+
+{{/each}}
 {{/if}}

@@ -198,4 +198,9 @@ export function createSomething() {
  */
 export function functionWithDocLink(): void { }
 
+
+export function dest({ a: b, b: c }: { a: string, b: number }): string {
+  return 'x';
+}
+
  /* tslint:enable */
